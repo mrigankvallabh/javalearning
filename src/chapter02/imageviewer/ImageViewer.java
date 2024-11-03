@@ -42,7 +42,7 @@ final class ImageViewerFrame extends JFrame {
         menuBar.add(menu);
         var openItem = new JMenuItem("Open");
         menu.add(openItem);
-        openItem.addActionListener(event -> {
+        openItem.addActionListener(_ -> {
             int showOpenDialog = chooser.showOpenDialog(null); // * Show file chooser dialog
             if (showOpenDialog == JFileChooser.APPROVE_OPTION) {
                 var fileName = chooser.getSelectedFile().getPath();
@@ -52,6 +52,6 @@ final class ImageViewerFrame extends JFrame {
 
         var exitItem = new JMenuItem("Exit");
         menu.add(exitItem);
-        exitItem.addActionListener(event -> System.exit(0));
+        exitItem.addActionListener(_ -> System.exit(0));
     }
 }

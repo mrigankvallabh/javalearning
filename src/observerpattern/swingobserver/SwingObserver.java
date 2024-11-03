@@ -16,7 +16,7 @@ class SwingObserver {
         frame.setVisible(true);
         var button = new JButton("Should I do it?");
         frame.add(button);
-        button.addActionListener(event -> System.out.println("Don't do it!"));
-        button.addActionListener(event -> System.out.println("Do it!"));
+        button.addActionListener(_ -> System.out.println("Don't do it!"));
+        button.addActionListener(_ -> System.out.println("Do it!"));
     }
 }
