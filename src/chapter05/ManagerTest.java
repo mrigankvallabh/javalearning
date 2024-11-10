@@ -2,16 +2,18 @@ package chapter05;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 final class ManagerTest {
-    static void main() {
+    static void main() throws CloneNotSupportedException {
         final var BOSS = new Manager("Jerry Springer", 92_000, 1982, 3, 21);
         BOSS.setBonus(9_200);
         final var staff = new Employee[3];
         staff[0] = BOSS;
         staff[1] = new Employee("Michael Chang", 76_000, 1992, 1, 10);
         staff[2] = new Employee("Wilma Sinclair", 60_000, 2000, 10, 8);
+        Arrays.sort(staff);
         for (Employee e : staff) {
             if (e instanceof Manager m) {
                 m.raiseSalary(2);
@@ -20,8 +22,8 @@ final class ManagerTest {
             }
             System.out.println(e);
         }
-        final var boss = new Manager("Jerry Springer", 92_000, 1982, 3, 21);
-        boss.setBonus(9_200);
+        final var boss = BOSS.clone();
+        boss.setBonus(10_250);
         boss.raiseSalary(2);
         if (boss.equals(BOSS)) {
             System.out.println(boss + " (" + boss.hashCode() + ") and " +
@@ -39,7 +41,7 @@ final class ManagerTest {
     }
 }
 
-abstract class Person {
+abstract class Person implements Comparable <Person> {
     private final String name;
 
     Person(String name) {
@@ -51,9 +53,17 @@ abstract class Person {
     public String getName() {
         return name;
     }
+
+    @Override
+    public final int compareTo(Person o) {
+        var spName = name.split(" ");
+        var spOtherName = o.name.split(" ");
+        return spName[spName.length - 1].compareTo(spOtherName[spOtherName.length - 1]);
+    }
+
 }
 
-class Employee extends Person {
+class Employee extends Person implements Cloneable {
     private double salary;
     private final LocalDate hireDate;
 
@@ -115,6 +125,10 @@ class Employee extends Person {
         return getClass().getSimpleName() + " " + getName() + " earning HK$%.2f".formatted(salary);
     }
 
+    @Override
+    protected Employee clone() throws CloneNotSupportedException {
+        return (Employee) super.clone();
+    }
     
 }
 
@@ -152,6 +166,11 @@ final class Manager extends Employee {
         }
         Manager otherManager = (Manager) obj;
         return bonus == otherManager.bonus;
+    }
+
+    @Override
+    protected Manager clone() throws CloneNotSupportedException {
+        return (Manager) super.clone();
     }
 
 }
