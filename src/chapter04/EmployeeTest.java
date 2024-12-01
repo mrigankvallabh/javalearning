@@ -54,8 +54,8 @@ final class Employee {
     }
 
     Employee(String name, double salary, int year, int month, int day) {
-        LocalDate hireDate = LocalDate.of(year, month, day);
-        this(name, salary, hireDate);
+        // LocalDate hireDate = LocalDate.of(year, month, day); // preview feature
+        this(name, salary, LocalDate.of(year, month, day));
     }
 
     int getId() {

@@ -32,9 +32,9 @@ abstract class Duck {
 class MallardDuck extends Duck {
 
     MallardDuck() {
-        var quackBehavior = new Quack();
-        var flyBehavior = new FlyWithWings();
-        super(quackBehavior, flyBehavior);
+        // var quackBehavior = new Quack();
+        // var flyBehavior = new FlyWithWings();
+        super(new Quack(), new FlyWithWings());
     }
 
     @Override
@@ -46,9 +46,9 @@ class MallardDuck extends Duck {
 class RocketDuck extends Duck {
 
     RocketDuck() {
-        var quackBehavior = new MuteQuack();
-        var flyBehavior = new FlyWithRocket();
-        super(quackBehavior, flyBehavior);
+        // var quackBehavior = new MuteQuack();
+        // var flyBehavior = new FlyWithRocket();
+        super(new MuteQuack(), new FlyWithRocket());
     }
 
     @Override

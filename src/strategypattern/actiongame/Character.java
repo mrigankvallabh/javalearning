@@ -34,32 +34,32 @@ abstract class Character {
 
 class King extends Character {
     King() {
-        Weapon knife = new Knife();
         super("King");
+        Weapon knife = new Knife();
         super.setWeapon(knife);
     }
 }
 
 class Queen extends Character {
     Queen() {
-        Weapon bow = new BowAndArrow();
         super("Queen");
+        Weapon bow = new BowAndArrow();
         super.setWeapon(bow);
     }
 }
 
 class Knight extends Character {
     Knight() {
-        Weapon sword = new Sword();
         super("Knight");
+        Weapon sword = new Sword();
         super.setWeapon(sword);
     }
 }
 
 class Troll extends Character {
     Troll() {
-        Weapon axe = new Axe();
         super("Troll");
+        Weapon axe = new Axe();
         super.setWeapon(axe);
     }
 }
