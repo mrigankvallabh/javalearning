@@ -1,24 +1,23 @@
 package observerpattern.weatherorama;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 interface WeatherSubject {
-    void registerObservers(WeatherObserver o);
+    void registerObservers(WeatherObserver<WeatherData> o);
 
     void notifyObservers();
 
-    void removeObservers(WeatherObserver o);
+    void removeObservers(WeatherObserver<WeatherData> o);
 }
 
 class WeatherData implements WeatherSubject {
-    private final List<WeatherObserver> wObservers;
     private double temperature;
     private double humidity;
     private double pressure;
+    private final Set<WeatherObserver<WeatherData>> wObservers = ConcurrentHashMap.newKeySet();
 
     WeatherData() {
-        wObservers = new ArrayList<>();
     }
 
     WeatherData(double temperature, double humidity, double pressure) {
@@ -47,18 +46,17 @@ class WeatherData implements WeatherSubject {
 
     @Override
     public void notifyObservers() {
-        for (var o : wObservers) {
-            o.update();
-        }
+        wObservers
+                .forEach(obs -> obs.update(this));
     }
 
     @Override
-    public void registerObservers(WeatherObserver o) {
+    public void registerObservers(WeatherObserver<WeatherData> o) {
         wObservers.add(o);
     }
 
     @Override
-    public void removeObservers(WeatherObserver o) {
+    public void removeObservers(WeatherObserver<WeatherData> o) {
         wObservers.remove(o);
     }
 }
